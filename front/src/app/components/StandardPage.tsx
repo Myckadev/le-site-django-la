@@ -11,13 +11,6 @@ export function StandardPage() {
         <div className="container mx-auto px-4 flex justify-between items-center">
           <h1 className="text-3xl font-bold">CyberStore</h1>
 
-          <button
-            className="sm:hidden text-white"
-            onClick={() => setMenuOpen(!isMenuOpen)}
-          >
-            ☰
-          </button>
-
           <nav className={`${isMenuOpen ? 'block' : 'hidden'} sm:flex space-x-4`}>
             <ul className="flex sm:space-x-4">
               <li><Link to="/" className="text-light-gray hover:text-white">Home</Link></li>

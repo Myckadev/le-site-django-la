@@ -16,8 +16,6 @@ const getEnvVariables = (): EnvConfig => {
 
 const env = getEnvVariables();
 
-console.log(process.env);
-
 export const {
   BASE_API_URL,
 } = env;

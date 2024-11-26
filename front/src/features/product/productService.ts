@@ -22,6 +22,7 @@ const productService = baseApi.injectEndpoints({
         method: 'POST',
         body,
       }),
+      invalidatesTags: ['PRODUCT'],
     }),
     updateProduct: build.mutation<ProductType, ProductType>({
       query: (updatedProduct) => ({

@@ -43,7 +43,6 @@ export function ProductPage() {
   const [editingProduct, setEditingProduct] = useState<number | null>(null);
   const [editedProduct, setEditedProduct] = useState<ProductType | null>(null);
 
-  // State for product creation
   const [newProduct, setNewProduct] = useState<ProductType>({
     id: 0,
     name: '',
@@ -57,18 +56,15 @@ export function ProductPage() {
 
   const [isModalOpen, setIsModalOpen] = useState(false); // Modal state
 
-  // Open and close modal
   const toggleModal = () => setIsModalOpen(!isModalOpen);
 
-  // Handle product input change
-  const handleInputChange = (e: ChangeEvent<HTMLInputElement | HTMLTextAreaElement>, field: string) => {
+  const handleInputChange = (e: ChangeEvent<HTMLInputElement | HTMLTextAreaElement | HTMLSelectElement>, field: string) => {
     setNewProduct({
       ...newProduct,
       [field]: e.target.value,
     });
   };
 
-  // Handle creating a product
   const handleCreateProduct = async () => {
     try {
       createProduct(newProduct);
@@ -102,7 +98,7 @@ export function ProductPage() {
     setEditedProduct(null);
   };
 
-  const handleChange = (e: ChangeEvent<HTMLInputElement | HTMLTextAreaElement>, field: string) => {
+  const handleChange = (e: ChangeEvent<HTMLInputElement | HTMLTextAreaElement | HTMLSelectElement>, field: string) => {
     if (editedProduct) {
       setEditedProduct({
         ...editedProduct,
@@ -152,13 +148,25 @@ export function ProductPage() {
               onChange={(e) => handleInputChange(e, 'brand')}
               className="w-full p-2 rounded-md bg-dark-purple text-white border-b border-soft-blue focus:outline-none"
             />
-            <input
-              type="text"
-              placeholder="Category"
-              value={newProduct.category}
-              onChange={(e) => handleInputChange(e, 'category')}
-              className="w-full p-2 rounded-md bg-dark-purple text-white border-b border-soft-blue focus:outline-none"
-            />
+
+            {/* Category Field as Select */}
+            <div className="mb-4">
+              <label htmlFor="category" className="block text-sm text-soft-blue mb-1">Category</label>
+              <select
+                id="category"
+                value={newProduct.category}
+                onChange={(e) => handleInputChange(e, 'category')}
+                className="w-full p-2 rounded-md bg-dark-purple text-white border-b border-soft-blue focus:outline-none"
+              >
+                <option value="Electronics">Electronics</option>
+                <option value="Laptops">Laptops</option>
+                <option value="Arts">Arts</option>
+                <option value="Food">Food</option>
+                <option value="Home">Home</option>
+                <option value="Kitchen">Kitchen</option>
+              </select>
+            </div>
+
             <textarea
               placeholder="Description"
               value={newProduct.description}
@@ -183,7 +191,7 @@ export function ProductPage() {
               type="number"
               placeholder="Rating"
               value={newProduct.ratings}
-              onChange={(e) => handleInputChange(e, 'rating')}
+              onChange={(e) => handleInputChange(e, 'ratings')}
               className="w-full p-2 rounded-md bg-dark-purple text-white border-b border-soft-blue focus:outline-none"
             />
           </div>
@@ -205,8 +213,8 @@ export function ProductPage() {
 
         <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-6 overflow-auto" style={{ maxHeight: '70vh' }}>
           {products?.map((product: ProductType) => (
-            <div key={product.id} className="bg-dark-purple text-white rounded-lg shadow-soft-neon hover:shadow-lg transition duration-300 ease-in-out p-6">
-              {/* Editable fields */}
+            <div key={product.id}
+                 className="bg-dark-purple text-white rounded-lg shadow-soft-neon hover:shadow-lg transition duration-300 ease-in-out p-6">
               <h2 className="text-2xl font-bold text-pastel-green mb-2">
                 {editingProduct === product.id ? (
                   <input
@@ -240,14 +248,19 @@ export function ProductPage() {
               <div className="mb-4">
                 <label htmlFor="category" className="block text-sm text-soft-blue mb-1">Category</label>
                 {editingProduct === product.id ? (
-                  <input
-                    type="text"
+                  <select
                     id="category"
                     value={editedProduct?.category || ''}
                     onChange={(e) => handleChange(e, 'category')}
                     className="bg-dark-bg text-white border-b border-soft-blue focus:outline-none w-full p-2 rounded-md transition duration-300"
-                    placeholder="Category"
-                  />
+                  >
+                    <option value="Electronics">Electronics</option>
+                    <option value="Laptops">Laptops</option>
+                    <option value="Arts">Arts</option>
+                    <option value="Food">Food</option>
+                    <option value="Home">Home</option>
+                    <option value="Kitchen">Kitchen</option>
+                  </select>
                 ) : (
                   <p>{product.category}</p>
                 )}
@@ -341,7 +354,7 @@ export function ProductPage() {
                     onClick={() => handleEditToggle(product.id, product)}
                     className="text-soft-blue hover:text-pastel-green"
                   >
-                    <FaEdit size={20} />
+                    <FaEdit size={20}/>
                   </button>
                 )}
 
@@ -349,7 +362,7 @@ export function ProductPage() {
                   onClick={() => handleDelete(product.id.toString())}
                   className="text-red-500 hover:text-red-700"
                 >
-                  <FaTrashAlt size={20} />
+                  <FaTrashAlt size={20}/>
                 </button>
               </div>
             </div>
