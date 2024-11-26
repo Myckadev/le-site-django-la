@@ -4,7 +4,7 @@ import { ProductType } from './utils/ProductType';
 const productService = baseApi.injectEndpoints({
   endpoints: (build) => ({
     getProducts: build.query<ProductType[], void>({
-      query: () => '/products',
+      query: () => '/products/',
       providesTags: (result) =>
         result
           ? [
@@ -26,7 +26,7 @@ const productService = baseApi.injectEndpoints({
     updateProduct: build.mutation<ProductType, ProductType>({
       query: (updatedProduct) => ({
         url: `/products/${updatedProduct.id}/update/`,
-        method: 'PUT',
+        method: 'PATCH',
         body: updatedProduct,
       }),
       invalidatesTags: (result, error, { id }) => [{ type: 'PRODUCT', id }],

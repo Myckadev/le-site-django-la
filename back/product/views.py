@@ -44,10 +44,10 @@ def create_product(request):
 
     return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
 
-@api_view(['PUT'])
+@api_view(['PATCH'])
 def update_product(request, pk):
     product = get_object_or_404(Product, id=pk)
-    serializer = ProductSerializer(product, data=request.data)
+    serializer = ProductSerializer(product, data=request.data, partial=True)
 
     if serializer.is_valid():
         serializer.save()
