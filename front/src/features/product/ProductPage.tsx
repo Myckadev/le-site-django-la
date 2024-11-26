@@ -1,4 +1,4 @@
-import { ChangeEvent, useState } from 'react';
+import {ChangeEvent, ReactNode, useState} from 'react';
 import {
   useGetProductsQuery,
   useDeleteProductMutation,
@@ -6,14 +6,12 @@ import {
   useUpdateProductMutation
 } from './productService';
 import { ProductType } from './utils/ProductType';
-import { Link } from 'react-router-dom';
 import { FaTrashAlt, FaEdit } from 'react-icons/fa';
 
-// Modal Component
 interface ModalProps {
   isOpen: boolean;
   onClose: () => void;
-  children: React.ReactNode;
+  children: ReactNode;
 }
 
 const Modal = ({ isOpen, onClose, children }: ModalProps) => {
@@ -54,7 +52,7 @@ export function ProductPage() {
     ratings: '',
   });
 
-  const [isModalOpen, setIsModalOpen] = useState(false); // Modal state
+  const [isModalOpen, setIsModalOpen] = useState(false);
 
   const toggleModal = () => setIsModalOpen(!isModalOpen);
 
@@ -149,7 +147,6 @@ export function ProductPage() {
               className="w-full p-2 rounded-md bg-dark-purple text-white border-b border-soft-blue focus:outline-none"
             />
 
-            {/* Category Field as Select */}
             <div className="mb-4">
               <label htmlFor="category" className="block text-sm text-soft-blue mb-1">Category</label>
               <select
@@ -332,7 +329,6 @@ export function ProductPage() {
                 </div>
               </div>
 
-              {/* Actions (Edit & Delete) */}
               <div className="flex justify-between items-center">
                 {editingProduct === product.id ? (
                   <div>
