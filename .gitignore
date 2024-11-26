@@ -2,6 +2,6 @@
 front/.idea/
 front/node_modules
 back/venv/
-back/eshop/__pycache__/
-back/product/__pychache__/
+**/__pycache__/
+*.pyc
 data/db.sqlite3
